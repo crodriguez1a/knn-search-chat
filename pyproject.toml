@@ -1,0 +1,11 @@
+[tool.poetry]
+name = "knn-search-chat"
+version = "0.1.0"
+description = ""
+authors = ["Carlos Rodriguez <crodriguez1a@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.4"
