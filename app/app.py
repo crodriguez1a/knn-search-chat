@@ -6,10 +6,12 @@ import nmslib
 
 # initialize encoder
 USENC_4: str = "https://tfhub.dev/google/universal-sentence-encoder-large/4"
-encoder: hub.module.Module = hub.load(USENC_4)
+default_encoder: hub.module.Module = hub.load(USENC_4)
 
 
-def encode(messages: list, encoder: hub.module.Module = encoder) -> np.ndarray:
+def encode(
+        messages: list,
+        encoder: hub.module.Module = default_encoder) -> np.ndarray:
     # extract embeddings as numpy array
     return encoder(messages)["outputs"]
 
