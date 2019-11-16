@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 jupyter = "*"
 pytest = "*"
+flake8 = "*"
+autopep8 = "*"
 
 [packages]
 tensorflow = "*"

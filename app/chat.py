@@ -10,6 +10,7 @@ from app.app import search, encode
 
 """Bot"""
 
+
 @dataclass
 class QABot:
     queries: dict
@@ -19,7 +20,9 @@ class QABot:
     def keyphrases(self) -> list:
         return list(self.queries.keys())
 
+
 """Chat Interface"""
+
 
 def _bubbles(pause: int):
     # credit https://gist.github.com/Y4suyuki/6805818
@@ -29,6 +32,7 @@ def _bubbles(pause: int):
         time.sleep(0.1)
         sys.stdout.write("\r" + animation[i % len(animation)])
         sys.stdout.flush()
+
 
 def chat(message: str, bot: QABot, search_index: nmslib.dist.FloatIndex):
     # delay animation
@@ -53,4 +57,4 @@ def chat(message: str, bot: QABot, search_index: nmslib.dist.FloatIndex):
             # randomize the answer for variety
             return random.choice(answer)
         else:
-            return "Sorry, I don't have an answer for that." # TODO no english
+            return "Sorry, I don't have an answer for that."  # TODO no english
