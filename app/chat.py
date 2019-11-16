@@ -43,7 +43,7 @@ def chat(message: str, bot: QABot, search_index: nmslib.dist.FloatIndex):
     # traverse to the first answer
     if idx.any():
         if dist[0] < 0.75:
-            # TODO decouple from search
+            # TODO decouple chat from search
             # match the search result index to a corresponding key-phrase
             search_result: str = bot.keyphrases[idx[0]]
 
