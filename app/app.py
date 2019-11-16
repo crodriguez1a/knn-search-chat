@@ -3,12 +3,13 @@ import tensorflow_hub as hub
 import numpy as np
 import os
 import nmslib
+import sentencepiece as spm
 
 USENC_2 = "https://tfhub.dev/google/universal-sentence-encoder/2"
-# TODO Use LITE encoder
+# USENC_LITE2 = "https://tfhub.dev/google/universal-sentence-encoder-lite/2"
 
 def load_encoder(module_url:str) -> hub.module.Module:
-    # @param ["https://tfhub.dev/google/universal-sentence-encoder/2", "https://tfhub.dev/google/universal-sentence-encoder-large/3"]
+    # ["https://tfhub.dev/google/universal-sentence-encoder/2", "https://tfhub.dev/google/universal-sentence-encoder-large/3"]
     # import as tf module
     return hub.Module(module_url)
 
@@ -48,6 +49,8 @@ if __name__ == "__main__":
           }
     }
 
+    # TODO move
+
     # load encoder module
     print("Loading encoder...")
     embed: hub.module.Module = load_encoder(USENC_2)
@@ -63,7 +66,7 @@ if __name__ == "__main__":
     search_index: nmslib.dist.FloatIndex = create_index(query_embeddings)
 
     # TEMP
-    idx, dist = search(encode(embed, ["What's your favorite baseball team"]))
+    idx, dist = search(encode_lite(embed, ["What's your favorite baseball team"]))
 
     if idx.any():
         search_result: str = queries[idx[0]]
