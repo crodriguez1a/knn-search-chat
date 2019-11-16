@@ -2,8 +2,13 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import numpy as np
 import os
+import random
 import nmslib
 import sentencepiece as spm
+
+# tensorflow hub does not support eager execution # https://github.com/tensorflow/hub/issues/124
+tf.compat.v1.disable_eager_execution()
+tf = tf.compat.v1
 
 USENC_2 = "https://tfhub.dev/google/universal-sentence-encoder/2"
 # USENC_LITE2 = "https://tfhub.dev/google/universal-sentence-encoder-lite/2"
@@ -66,7 +71,7 @@ if __name__ == "__main__":
     search_index: nmslib.dist.FloatIndex = create_index(query_embeddings)
 
     # TEMP
-    idx, dist = search(encode_lite(embed, ["What's your favorite baseball team"]))
+    idx, dist = search(encode(embed, ["What's your favorite baseball team"]))
 
     if idx.any():
         search_result: str = queries[idx[0]]
