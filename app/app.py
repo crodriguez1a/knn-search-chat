@@ -7,24 +7,21 @@ import nmslib
 import sentencepiece as spm
 
 # tensorflow hub does not support eager execution # https://github.com/tensorflow/hub/issues/124
-tf.compat.v1.disable_eager_execution()
-tf = tf.compat.v1
+# tf.compat.v1.disable_eager_execution()
+# tf = tf.compat.v1
 
-USENC_2 = "https://tfhub.dev/google/universal-sentence-encoder/2"
+USENC_4 = "https://tfhub.dev/google/universal-sentence-encoder-large/4"
+# USENC_2 = "https://tfhub.dev/google/universal-sentence-encoder/2"
 # USENC_LITE2 = "https://tfhub.dev/google/universal-sentence-encoder-lite/2"
 
 def load_encoder(module_url:str) -> hub.module.Module:
     # ["https://tfhub.dev/google/universal-sentence-encoder/2", "https://tfhub.dev/google/universal-sentence-encoder-large/3"]
     # import as tf module
-    return hub.Module(module_url)
+    return hub.load(module_url)
 
 def encode(embed: hub.module.Module, messages: list) -> np.ndarray:
-    # initialize tf session graph
-    with tf.Session() as session:
-        session.run([ tf.global_variables_initializer(),
-                      tf.tables_initializer()
-                    ])
-        return session.run(embed(messages))
+    # TODO cache anything previously encoded for this turn
+    return embed(messages)['outputs']
 
 def create_index(embeddings: np.ndarray, method: str='hnsw') -> nmslib.dist.FloatIndex:
     """
@@ -40,6 +37,13 @@ def create_index(embeddings: np.ndarray, method: str='hnsw') -> nmslib.dist.Floa
 def search(query_vector: np.ndarray, n_results:int = 3) -> tuple:
     idx, dist = search_index.knnQuery(query_vector, k=n_results)
     return (idx, dist)
+
+def update_search_index(embed, queries: list) -> nmslib.dist.FloatIndex:
+    # encode queries
+    print('Encoding bot data...')
+    query_embeddings: np.ndarray = encode(embed, queries)
+
+    return create_index(query_embeddings)
 
 if __name__ == "__main__":
     # sample bot
@@ -58,7 +62,7 @@ if __name__ == "__main__":
 
     # load encoder module
     print("Loading encoder...")
-    embed: hub.module.Module = load_encoder(USENC_2)
+    embed: hub.module.Module = load_encoder(USENC_4)
 
     # assemble possible queries
     queries: list = list(qna['queries'].keys())
