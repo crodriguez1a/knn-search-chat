@@ -22,10 +22,14 @@ pytest
 ## Running the Server
 
 Start the flask server:
-`python -m server.server`
+```
+python -m server.server
+```
 
 With the flask server running, run the following:
-`python -m server.chat`
+```
+python -m server.chat
+```
 
 From the command prompt, begin typing a message using the command `say`:
 
