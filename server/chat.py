@@ -1,9 +1,11 @@
+import os
 from cmd import Cmd
 import requests
 
 from app.chat import bubbles
 
-CHAT_SERVER: str = 'http://127.0.0.1:5000'  # TODO env
+default_flask: str = 'http://127.0.0.1:5000'
+CHAT_SERVER: str = os.getenv('CHAT_SERVER_URL', default_flask)
 
 
 class ChatPrompt(Cmd):

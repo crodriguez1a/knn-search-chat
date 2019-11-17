@@ -5,9 +5,9 @@ import nmslib
 
 """Encoder"""
 
-# TODO environment variable, injection
 USENC_4: str = os.getenv(
     'ENCODER',
+    # TODO consider local download
     'https://tfhub.dev/google/universal-sentence-encoder-large/4')
 DISTANCE_THRESHOLD: float = os.getenv('DISTANCE_THRESHOLD', 0.75)
 
