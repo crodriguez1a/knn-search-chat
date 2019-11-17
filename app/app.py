@@ -1,19 +1,29 @@
+import os
 import tensorflow_hub as hub
 import numpy as np
 import nmslib
 
 """Encoder"""
 
-# initialize encoder
-USENC_4: str = "https://tfhub.dev/google/universal-sentence-encoder-large/4"
-default_encoder: hub.module.Module = hub.load(USENC_4)
+USENC_4: str = os.getenv(
+    'ENCODER',
+    # TODO consider local download
+    'https://tfhub.dev/google/universal-sentence-encoder-large/4')
+DISTANCE_THRESHOLD: float = os.getenv('DISTANCE_THRESHOLD', 0.75)
 
 
-def encode(
-        messages: list,
-        encoder: hub.module.Module = default_encoder) -> np.ndarray:
-    # extract embeddings as numpy array
-    return encoder(messages)["outputs"]
+class Encoder:
+    __slots__ = ['module_url', '_encoder']
+
+    def __init__(self, module_url: str):
+        # initialize encoder
+        self._encoder: hub.module.Module = hub.load(module_url)
+
+    def encode(
+            self,
+            messages: list,) -> np.ndarray:
+        # extract embeddings as numpy array
+        return self._encoder(messages)["outputs"]
 
 
 """Search"""

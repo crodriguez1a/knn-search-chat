@@ -14,7 +14,9 @@ tensorflow = "*"
 tensorflow-hub = "*"
 numpy = "*"
 nmslib = "*"
-sentencepiece = "*"
+flask = "*"
+pyyaml = "*"
+requests = "*"
 
 [requires]
 python_version = "3.7"

@@ -2,39 +2,15 @@ import time
 import sys
 
 import numpy as np
-from dataclasses import dataclass
-import random
 import nmslib
 
-from app.app import search, encode
-
-"""Bot"""
-
-
-@dataclass
-class QABot:
-    queries: dict
-    answers: dict
-
-    @property
-    def keyphrases(self) -> list:
-        return list(self.queries.keys())
-
-    def answers_index(self, idx: int) -> str:
-        # match an index to a corresponding key-phrase
-        keyphrase: str = self.keyphrases[idx]
-        # use the plain text key-phrase to map to an answer
-        answer_key: str = self.queries[keyphrase]
-        # mapped answer
-        answer: str = self.answers[answer_key]
-        # randomize the answer for variety
-        return random.choice(answer)
-
+from app.app import search, DISTANCE_THRESHOLD
+from app.bots import QABot  # TODO abstract base class for type hinting
 
 """Chat Interface"""
 
 
-def _bubbles(pause: int):
+def bubbles(pause: int):
     # credit https://gist.github.com/Y4suyuki/6805818
     animation = "|/-\\"
 
@@ -44,9 +20,8 @@ def _bubbles(pause: int):
         sys.stdout.flush()
 
 
-def chat(message: str, bot: QABot, search_index: nmslib.dist.FloatIndex):
-    # delay animation
-    _bubbles(5)
+def chat(message: str, encode: callable, bot: QABot,
+         search_index: nmslib.dist.FloatIndex):
 
     # encode query
     vectory_query: np.ndarray = encode([message])
@@ -56,7 +31,7 @@ def chat(message: str, bot: QABot, search_index: nmslib.dist.FloatIndex):
 
     # traverse to the first answer
     if idx.any():
-        if dist[0] < 0.75:
+        if dist[0] < DISTANCE_THRESHOLD:
             return bot.answers_index(idx[0])
         else:
             return "Sorry, I don't have an answer for that."  # TODO no english
