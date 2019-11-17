@@ -1,0 +1,23 @@
+---
+questions:
+  best baseball team: fav_baseball
+  favorite basketball team: fav_basketball
+  grew up: hometown
+  hometown: hometown
+  hello: greeting
+answers:
+  fav_baseball:
+  - NY Yankees, obviously
+  - have to say...Yankees
+  fav_basketball:
+  - Grew up in the Jordan era...Bulls
+  - Bulls
+  - Chicago
+  hometown:
+  - South Norwalk, CT
+  - Connecticut
+  - Southern Connecticut right outside of NY
+  greeting:
+  - What's up
+  - Hey
+  - Yo
