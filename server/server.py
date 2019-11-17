@@ -1,9 +1,9 @@
+from server.middleware import BotMiddleWare, encode, bot, search_index
 import logging
 
 from flask import Flask, request
 app = Flask(__name__)
 
-from server.middleware import BotMiddleWare, encode, bot, search_index
 
 # initialize middleware
 bot_middleware: BotMiddleWare = BotMiddleWare(encode, bot, search_index)

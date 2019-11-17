@@ -21,12 +21,12 @@ pytest
 
 ## Running the Server
 
-Start the flask server:
+In one shell, start the flask server:
 ```
 python -m server.server
 ```
 
-With the flask server running, run the following:
+In another, start the chat command prompt:
 ```
 python -m server.chat
 ```
