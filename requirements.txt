@@ -8,23 +8,23 @@ click==7.0
 flask==1.1.1
 gast==0.2.2
 google-auth-oauthlib==0.4.1
-google-auth==1.11.0
+google-auth==1.11.2
 google-pasta==0.1.8
-grpcio==1.26.0
+grpcio==1.27.2
 h5py==2.10.0
 idna==2.8
 itsdangerous==1.1.0
-jinja2==2.11.0
+jinja2==2.11.1
 keras-applications==1.0.8
 keras-preprocessing==1.1.0
-markdown==3.1.1
+markdown==3.2.1
 markupsafe==1.1.1
 nmslib==2.0.5
 numpy==1.17.4
 oauthlib==3.1.0
 opt-einsum==3.1.0
-protobuf==3.11.2
-psutil==5.6.7
+protobuf==3.11.3
+psutil==5.7.0
 pyasn1-modules==0.2.8
 pyasn1==0.4.8
 pybind11==2.4.3
@@ -39,6 +39,6 @@ tensorflow-hub==0.7.0
 tensorflow==2.0.1
 termcolor==1.1.0
 urllib3==1.25.8
-werkzeug==0.16.1
-wheel==0.34.1 ; python_version >= '3'
-wrapt==1.11.2
+werkzeug==1.0.0
+wheel==0.34.2 ; python_version >= '3'
+wrapt==1.12.0
